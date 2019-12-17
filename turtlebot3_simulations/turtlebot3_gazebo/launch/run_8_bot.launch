@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<launch>
+  <node name="ttb1" pkg="turtlebot3_gazebo" type="ttb1.py" output="screen"/>
+  <node name="ttb2" pkg="turtlebot3_gazebo" type="ttb2.py" output="screen"/>
+  <node name="ttb3" pkg="turtlebot3_gazebo" type="ttb3.py" output="screen"/>
+  <node name="ttb4" pkg="turtlebot3_gazebo" type="ttb4.py" output="screen"/>
+  <node name="ttb5" pkg="turtlebot3_gazebo" type="ttb5.py" output="screen"/>
+  <node name="ttb6" pkg="turtlebot3_gazebo" type="ttb6.py" output="screen"/>
+  <node name="ttb7" pkg="turtlebot3_gazebo" type="ttb7.py" output="screen"/>
+  <node name="ttb8" pkg="turtlebot3_gazebo" type="ttb8.py" output="screen"/>
+</launch>
