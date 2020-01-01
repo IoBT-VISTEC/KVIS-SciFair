@@ -330,28 +330,27 @@ class Toplevel1:
         self.score_red.configure(textvariable=self.score[5])
 
     def updateScore(self, msg):
-        if msg.team == "Black":
+        if msg.team == "black":
             self.score[0].set(str(msg.score))
-        elif msg.team == "Blue":
+        elif msg.team == "blue":
             self.score[1].set(str(msg.score))
-        elif msg.team == "Green":
+        elif msg.team == "green":
             self.score[2].set(str(msg.score))
-        elif msg.team == "Orange":
+        elif msg.team == "orange":
             self.score[3].set(str(msg.score))
-        elif msg.team == "Purple":
+        elif msg.team == "purple":
             self.score[4].set(str(msg.score))
-        elif msg.team == "Red":
+        elif msg.team == "red":
             self.score[5].set(str(msg.score))
-        elif msg.team == "White":
+        elif msg.team == "white":
             self.score[6].set(str(msg.score))
-        elif msg.team == "Yellow":
+        elif msg.team == "yellow":
             self.score[7].set(str(msg.score))
 
 
 if __name__ == '__main__':
     rospy.init_node("scoreboard", anonymous=True)
     vp_start_gui()
-
 
 
 
