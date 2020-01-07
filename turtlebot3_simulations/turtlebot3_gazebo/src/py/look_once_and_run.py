@@ -2,6 +2,9 @@ from turtlebot_drive import Turtlebot3_drive
 import rospy
 
 class drive(Turtlebot3_drive):
+    
+    def __init__(self, team):
+        super(drive, self).__init__(team)
 
     def logic(self):
         if self.initial:
