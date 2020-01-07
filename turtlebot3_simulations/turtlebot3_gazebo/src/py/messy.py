@@ -3,6 +3,9 @@ import rospy
 import random  # Do not forget
 
 class drive(Turtlebot3_drive):
+    
+    def __init__(self, team):
+        super(drive, self).__init__(team)
 
     def logic(self):
         if self.initial:
