@@ -7,16 +7,25 @@ class drive(Turtlebot3_drive):
         if self.initial:
             self.initial = False
             return "walk"
+        '''
+        This exmaple TTB will run til hit a wall or soda can
+        When it hit the wall, stop and turn around. Then run again
+        '''
 
-        # Find target. only in front of TTB
         center_dist = self.top_center_sensor - self.bottom_center_sensor
+        turn_right_count = self.mem[0] 
 
-        # When it hit the wall, stop and turn right until find new target
-        if center_dist == 0:
+        if center_dist < 0.1:
             if self.current_vel != 0:
                 return "stop"
             else:
-                return "turn right"
+                if turn_right_count > 8:
+                    self.mem[0] = 0  # important! reset count to zero
+                    return "run"
+                else:
+                    turn_right_count += 1
+                    self.mem[0] = turn_right_count  
+                    return "turn right"
         else:
             return "run"
 

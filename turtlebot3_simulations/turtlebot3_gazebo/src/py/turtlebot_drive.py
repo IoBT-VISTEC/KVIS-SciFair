@@ -73,7 +73,7 @@ class Turtlebot3_drive(ABC):
         self.model_sub = rospy.Subscriber("gazebo/model_states", ModelStates, self.stateMsgCallback)
 
         self.initial = True
-        self.mem = []
+        self.mem = [0,0,0,0,0]
 
     def updatecommandVelocity(self, linear, angular):
         cmd_vel = Twist()
