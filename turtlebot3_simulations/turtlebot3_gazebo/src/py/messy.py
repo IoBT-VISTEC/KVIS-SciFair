@@ -3,7 +3,7 @@ import rospy
 import random  # Do not forget
 
 class drive(Turtlebot3_drive):
-    
+
     def __init__(self, team):
         super(drive, self).__init__(team)
 
@@ -19,6 +19,14 @@ class drive(Turtlebot3_drive):
         operation = random.choice(operation_choice)
 
         is_moving = self.mem[0]
+
+        center_dist = self.top_center_sensor - self.bottom_center_sensor
+
+        if center_dist < 0.1:
+            if self.current_vel != 0:
+                return "stop"
+            else:
+                return "turn right"
 
         if is_moving < 5: # TTB runs 5 steps 
             is_moving += 1

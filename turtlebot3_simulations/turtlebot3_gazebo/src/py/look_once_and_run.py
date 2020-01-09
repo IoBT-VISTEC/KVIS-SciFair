@@ -2,7 +2,7 @@ from turtlebot_drive import Turtlebot3_drive
 import rospy
 
 class drive(Turtlebot3_drive):
-    
+
     def __init__(self, team):
         super(drive, self).__init__(team)
 
@@ -16,7 +16,7 @@ class drive(Turtlebot3_drive):
 
         center_dist = self.top_center_sensor - self.bottom_center_sensor
         left_dist = self.top_left_sensor - self.bottom_left_sensor
-        right_dist = self.top_right_sensor - self.top_right_sensor
+        right_dist = self.top_right_sensor - self.bottom_right_sensor
 
         # When it hit the wall, stop and turn right
         if center_dist < 0.1:
@@ -34,15 +34,12 @@ class drive(Turtlebot3_drive):
         else:
             # Seek for the shortest and turn to its direction
             if center_dist < left_dist:
-                if center_dist < right_dist:
-                    min_dist = center_dist
-                else:
-                    min_dist = right_dist
+                min_dist = center_dist
             else:
-                if left_dist < right_dist:
-                    min_dist = left_dist 
-                else:
-                    min_dist = right_dist
+                min_dist = left_dist
+            
+            if right_dist < min_dist:
+                min_dist = right_dist
             
 
             # turn to direction and set get_direction
