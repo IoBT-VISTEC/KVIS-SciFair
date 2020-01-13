@@ -217,7 +217,7 @@
   <joint name="high_joint" type="fixed">
     <parent link="base_scan"/>
     <child link="high_scan"/>
-    <origin xyz="0 0 0.15" rpy="0 0 0"/>
+    <origin xyz="0.2 0 0" rpy="0 0 0"/>
   </joint>
 
   <link name="high_scan">

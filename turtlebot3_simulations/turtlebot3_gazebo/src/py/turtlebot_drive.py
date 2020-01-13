@@ -9,9 +9,11 @@ from sensor_msgs.msg import LaserScan
 from nav_msgs.msg import Odometry
 from gazebo_msgs.msg import ModelStates
 from gazebo_msgs.srv import DeleteModel
-from abc import ABC, abstractmethod
+from abc import ABCMeta, abstractmethod
 
-class Turtlebot3_drive(ABC):
+class Turtlebot3_drive():
+    __metaclass__ = ABCMeta
+    
     def __init__(self, team):
         self.DEG2RAD = math.pi / 180.0
         self.RAD2DEG = 180.0 / math.pi
@@ -73,6 +75,7 @@ class Turtlebot3_drive(ABC):
         self.model_sub = rospy.Subscriber("gazebo/model_states", ModelStates, self.stateMsgCallback)
 
         self.initial = True
+        self.mem = [0,0,0,0,0]
 
     def updatecommandVelocity(self, linear, angular):
         cmd_vel = Twist()
