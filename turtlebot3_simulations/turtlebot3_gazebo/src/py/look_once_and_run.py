@@ -44,6 +44,7 @@ class drive(Turtlebot3_drive):
 
             # turn to direction and set get_direction
             get_direction = 1
+            self.mem[0] = get_direction
             if min_dist == center_dist:
                 return "run"
             elif min_dist == right_dist:
