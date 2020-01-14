@@ -25,10 +25,10 @@ class Turtlebot3_drive():
 
         ###########################################################################
         self.orient = [
-                        [1,1,1,1],
-                        [1,1,1,1],
-                        [1,1,1,1],
-                        [1,1,1,1],  
+                        [0,0,math.sqrt(2)/2,math.sqrt(2)/2],
+                        [0,0,1,0],
+                        [0,0,0,1],
+                        [0,0,-math.sqrt(2)/2,math.sqrt(2)/2],  
                       ]
         ############################################################################
 
@@ -42,7 +42,7 @@ class Turtlebot3_drive():
         a.model_name = "turtlebot3"
         a.pose.position.x = math.floor(self.current_position[0]) + 0.5
         a.pose.position.y = math.floor(self.current_position[1]) + 0.5
-        a.pose.position.z = self.current_position[2]
+        a.pose.position.z = self.current_position[2] + 0.1
         if choice == 3 or choice == 4:
             randOrient = random.choice(self.orient)
             a.pose.orientation.x = randOrient[0]
@@ -50,10 +50,10 @@ class Turtlebot3_drive():
             a.pose.orientation.z = randOrient[2]
             a.pose.orientation.w = randOrient[3]
         else:
-            a.pose.orientation.x = self.prev_orient[0]
-            a.pose.orientation.y = self.prev_orient[1]
-            a.pose.orientation.z = self.prev_orient[2]
-            a.pose.orientation.w = self.prev_orient[3]
+            a.pose.orientation.x = self.orientation_list[0]
+            a.pose.orientation.y = self.orientation_list[1]
+            a.pose.orientation.z = self.orientation_list[2]
+            a.pose.orientation.w = self.orientation_list[3]
         #self.model_pub(a)        
 
         ############################################################
@@ -79,7 +79,7 @@ class Turtlebot3_drive():
         # while rospy.Time.now() - self.startTime < rospy.Duration(10):
         #     self.updatecommandVelocity(0.5, -0.0003874) # 90 deg
         # self.updatecommandVelocity(0.0, 0.0)
-        self.prev_orient = self.orientation_list
+        # self.prev_orient = self.orientation_list
         if (self.choice == 1): # left
             self.prev_tb3_pose = self.tb3_pose
             while math.fabs(self.prev_tb3_pose - self.tb3_pose) < 1.57079632679:
@@ -102,7 +102,7 @@ class Turtlebot3_drive():
             # self.updatecommandVelocity(0.0, 0.0)
         elif (self.choice == 4): # back
             self.startTime = rospy.Time.now()
-            while rospy.Time.now() - self.startTime < rospy.Duration(10):
+            while rospy.Time.now() - self.startTime < rospy.Duration(5):
                 self.updatecommandVelocity(-0.2, 0)
             self.updatecommandVelocity(0.0, 0.0)
         else: # forward
