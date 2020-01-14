@@ -16,6 +16,10 @@ mapNo = StringVar()
 mapNo.set(1)
 mapLabel = StringVar()
 mapLabel.set("MAP:")
+turn = StringVar()
+turn.set(0)
+turnLabel = StringVar()
+turnLabel.set("Turn:")
 
 pos = [
         [1.5,-1.5],
@@ -58,6 +62,7 @@ eeg_sub = rospy.Subscriber("/chatter", String, displayReady)
 
 def callback():
     #var1.set("Sending Request...")
+    turn.set(int(turn.get()) + 1)
     greenbutton["state"] = "disabled"
     eeg_pub.publish("action")
 
@@ -118,4 +123,11 @@ label_map.pack(side=RIGHT)
 label_map_count = Label(lowestframe, textvariable=mapLabel, relief=GROOVE )
 label_map_count.configure(font="-family {Cascadia Code} -size 36")
 label_map_count.pack(side=LEFT)
+
+label_turn = Label(upperframe, textvariable=turnLabel, relief=RIDGE )
+label_turn.configure(font="-family {Cascadia Code} -size 36")
+label_turn.pack(side=LEFT)
+counter = Label(upperframe, textvariable=turn, relief=GROOVE )
+counter.configure(font="-family {Cascadia Code} -size 36")
+counter.pack(side=LEFT)
 root.mainloop() 
