@@ -1,6 +1,9 @@
 import rospy
+import math
 from std_msgs.msg import String
 from Tkinter import *
+from gazebo_msgs.msg import ModelState
+from gazebo_msgs.srv import SetModelState
 
 root = Tk(className="Signal Trigger")
 var1 = StringVar()
@@ -9,6 +12,19 @@ var1.set("...")
 var2.set("...")
 var3 = StringVar()
 var3.set("Direction")
+mapNo = StringVar()
+mapNo.set(1)
+mapLabel = StringVar()
+mapLabel.set("MAP:")
+
+pos = [
+        [1.5,-1.5],
+        [-9.5, 6.5],
+        [9.5, -9.5],
+        [-8.5, -6.5],
+        [-9.5,1.5],
+        [9.5, 9.5],  
+    ]
 
 def displayReady(msg):
     #var.set("Start the movement...")
@@ -45,18 +61,46 @@ def callback():
     greenbutton["state"] = "disabled"
     eeg_pub.publish("action")
 
+def nextMap():
+    maze = int(mapNo.get())
+    if maze == 6:
+        maze = 1
+    else:
+        maze = maze + 1
+    mapNo.set(maze)
+
+    a = ModelState()
+    a.model_name = "turtlebot3"
+    a.pose.position.x = pos[maze-1][0]
+    a.pose.position.y = pos[maze-1][1]
+    a.pose.position.z = 0.15
+    
+    a.pose.orientation.x = 0
+    a.pose.orientation.y = 0
+    a.pose.orientation.z = math.sqrt(2)/2
+    a.pose.orientation.w = math.sqrt(2)/2
+
+    rospy.wait_for_service('/gazebo/set_model_state')
+    try:
+        set_state = rospy.ServiceProxy('/gazebo/set_model_state', SetModelState)
+        resp = set_state( a )
+    except rospy.ServiceException, e:
+        print "Service call failed: %s" % e
+
 
 root.minsize(300,50)
 upperframe = Frame(root)
 upperframe.pack(side=TOP)
 frame = Frame(root) 
 frame.pack() 
+lowestframe = Frame(root)
+lowestframe.pack(side=BOTTOM)
 lowerframe = Frame(root)
 lowerframe.pack(side=BOTTOM)
 greenbutton = Button(frame, text = 'Start', fg ='green', command=callback) 
 greenbutton.configure(font="-family {Cascadia Code} -size 36")
 greenbutton.pack( side = LEFT) 
-redbutton = Button(frame, text = 'Stop', fg='red')# , command=hideReady
+redbutton = Button(frame, text = 'Next', fg='red', command=nextMap) 
 redbutton.configure(font="-family {Cascadia Code} -size 36")
 redbutton.pack( side = LEFT ) 
 label_left = Label(lowerframe, textvariable=var1, relief=SUNKEN )
@@ -68,4 +112,10 @@ label_right.pack(side=RIGHT)
 label_top = Label(upperframe, textvariable=var3, relief=SUNKEN )
 label_top.configure(font="-family {Cascadia Code} -size 36")
 label_top.pack(side=TOP)
+label_map = Label(lowestframe, textvariable=mapNo, relief=RIDGE )
+label_map.configure(font="-family {Cascadia Code} -size 36")
+label_map.pack(side=RIGHT)
+label_map_count = Label(lowestframe, textvariable=mapLabel, relief=GROOVE )
+label_map_count.configure(font="-family {Cascadia Code} -size 36")
+label_map_count.pack(side=LEFT)
 root.mainloop() 
