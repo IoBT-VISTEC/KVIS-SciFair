@@ -1,5 +1,6 @@
 from turtlebot_drive import Turtlebot3_drive
 import rospy
+import random
 
 class drive(Turtlebot3_drive):
 

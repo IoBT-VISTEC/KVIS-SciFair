@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 from turtlebot_drive import Turtlebot3_drive
 import rospy
 
@@ -10,22 +11,27 @@ class drive(Turtlebot3_drive):
         if self.initial:
             self.initial = False
             return "walk"
+        '''
+        This exmaple TTB will run til hit a wall or soda can
+        When it hit the wall, stop and turn around. Then run again
+        '''
 
-        if self.top_center_sensor - self.bottom_center_sensor > 0.1:
-            print('seek')
-            if self.bottom_center_sensor > self.bottom_left_sensor:
-                return "turn left"
-            elif self.bottom_center_sensor > self.bottom_right_sensor:
-                return "turn right"
+        center_dist = self.top_center_sensor - self.bottom_center_sensor
+        turn_right_count = self.mem[0] 
+
+        if center_dist < 0.1:
+            if self.current_vel != 0:
+                return "stop"
             else:
-                return "run"
-            
+                if turn_right_count > 8:
+                    self.mem[0] = 0  # important! reset count to zero
+                    return "run"
+                else:
+                    turn_right_count += 1
+                    self.mem[0] = turn_right_count  
+                    return "turn right"
         else:
-            print('avoid')
-            if self.bottom_right_sensor > self.bottom_left_sensor:
-                return "turn right"
-            else:
-                return "turn left"
+            return "run"
 
 if __name__ == '__main__':
     rospy.init_node('drive', anonymous=True)

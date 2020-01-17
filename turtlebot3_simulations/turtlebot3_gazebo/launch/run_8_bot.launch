@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+
 <launch>
   <node name="ttb1" pkg="turtlebot3_gazebo" type="ttb1.py" output="screen"/>
   <node name="ttb2" pkg="turtlebot3_gazebo" type="ttb2.py" output="screen"/>
