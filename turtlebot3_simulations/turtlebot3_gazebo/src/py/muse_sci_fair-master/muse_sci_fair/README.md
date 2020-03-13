@@ -1,7 +1,7 @@
 
 # Muse Sci-fair
 
-This project used muse headband with bluemuse and muselsl to connect with the robotic's part (https://github.com/BAXMAY/ROBOTICS-FAIR/tree/master/turtlebot3_simulations/turtlebot3_gazebo/src/py) via ROS protocol
+This project used muse headband with bluemuse and muselsl to connect with the robotic's part via ROS protocol
 
 ## Requirements
 
