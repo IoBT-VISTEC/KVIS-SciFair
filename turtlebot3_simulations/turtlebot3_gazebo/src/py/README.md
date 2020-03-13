@@ -51,6 +51,8 @@ roslaunch turtlebot3_gazebo run_8_bot.launch
 ---
 ## Brain Part
 
+0. For MUSE part follow these step [MUSE INSTALLATION](https://github.com/IoBT-VISTEC/KVIS-SciFair/tree/master/turtlebot3_simulations/turtlebot3_gazebo/src/py/muse_sci_fair-master/muse_sci_fair).
+
 1. Open 4 Terminal (Alt + Ctrl + T)
 
 2. On the first terminal, Run gazebo. If success, the map will appear on screen.
