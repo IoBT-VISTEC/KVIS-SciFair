@@ -1,3 +1,10 @@
+# KVIS-SciFair MAZE GAME
+Overview
+ =
+<img src="Images/Maze game final.png" width="1000" height="500">
+
+## Manual
+ 
 [Run code Here](turtlebot3_simulations/turtlebot3_gazebo/src/py)
 
 Run code:
