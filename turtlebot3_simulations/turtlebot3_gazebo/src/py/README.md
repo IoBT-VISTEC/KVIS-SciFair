@@ -1,4 +1,4 @@
-# Turtlebot Tutorial
+# Turtlebot Tutorial (Maze game)
 <img src="Images/maze.png" width="800" height="500">
 
 ## Robotics Part
